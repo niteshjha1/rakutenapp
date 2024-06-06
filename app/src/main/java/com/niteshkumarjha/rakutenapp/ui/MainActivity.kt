@@ -27,6 +27,8 @@ import com.niteshkumarjha.rakutenapp.ui.details.ProductDetailsActivity
 import com.niteshkumarjha.rakutenapp.viewmodel.ProductListViewModel
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = "MainActivity"
+
     private lateinit var searchBar: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var emptyView: TextView
@@ -45,10 +47,12 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
         setupSearchBar()
 
+        // Restore the search text if available
         savedInstanceState?.let {
             searchBar.setText(it.getString("searchText"))
         }
 
+        // Handle the initial state of the empty view and popup window
         if (searchBar.text.isNullOrEmpty()) {
             toggleEmptyView(true)
             hidePopupWindow()
@@ -80,11 +84,13 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(ProductListViewModel::class.java)
 
+        // Observe product list changes
         viewModel.products.observe(this, Observer { products ->
             productAdapter.updateProducts(products)
             toggleEmptyView(products.isEmpty())
         })
 
+        // Observe progress bar visibility changes
         viewModel.showProgressBar.observe(this, Observer { showProgressBar ->
             toggleProgressBar(showProgressBar)
         })
@@ -105,9 +111,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchBar.addTextChangedListener { text ->
-            Log.d("NITESH_NITESH", "Text entered: ${text.toString()}")
+            Log.d(TAG, "Text entered: ${text.toString()}")
             if (text.isNullOrEmpty()) {
-                Log.d("NITESH_NITESH", "Search bar is empty, clearing RecyclerView")
+                Log.d(TAG, "Search bar is empty, clearing RecyclerView")
                 clearRecyclerView()
                 hidePopupWindow()
             } else {
@@ -128,10 +134,10 @@ class MainActivity : AppCompatActivity() {
                         showPopupWindow()
                     }
                 }, 100)
-                Log.d("NITESH_NITESH", "Search bar focused with text, showing clear screen hint")
+                Log.d(TAG, "Search bar focused with text, showing clear screen hint")
             } else {
                 hidePopupWindow()
-                Log.d("NITESH_NITESH", "Search bar not focused or empty, hiding clear screen hint")
+                Log.d(TAG, "Search bar not focused or empty, hiding clear screen hint")
             }
         }
     }
@@ -143,7 +149,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearRecyclerView() {
         productAdapter.clearProducts()
-        Log.d("NITESH_NITESH", "RecyclerView cleared")
+        Log.d(TAG, "RecyclerView cleared")
         toggleEmptyView(true)
     }
 
@@ -151,28 +157,28 @@ class MainActivity : AppCompatActivity() {
         if (show) {
             recyclerView.visibility = RecyclerView.GONE
             emptyView.visibility = TextView.VISIBLE
-            Log.d("NITESH_NITESH", "RecyclerView is empty, showing empty view")
+            Log.d(TAG, "RecyclerView is empty, showing empty view")
         } else {
             recyclerView.visibility = RecyclerView.VISIBLE
             emptyView.visibility = TextView.GONE
-            Log.d("NITESH_NITESH", "RecyclerView has items, hiding empty view")
+            Log.d(TAG, "RecyclerView has items, hiding empty view")
         }
     }
 
     private fun toggleProgressBar(show: Boolean) {
         if (show) {
             progressBar.visibility = View.VISIBLE
-            Log.d("NITESH_NITESH", "Showing progress bar")
+            Log.d(TAG, "Showing progress bar")
         } else {
             progressBar.visibility = View.GONE
-            Log.d("NITESH_NITESH", "Hiding progress bar")
+            Log.d(TAG, "Hiding progress bar")
         }
     }
 
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(searchBar.windowToken, 0)
-        Log.d("NITESH_NITESH", "Keyboard hidden")
+        Log.d(TAG, "Keyboard hidden")
     }
 
     private fun showPopupWindow() {
@@ -189,13 +195,13 @@ class MainActivity : AppCompatActivity() {
 
             // Show the popup window at the calculated position
             popupWindow?.showAsDropDown(searchBar, xOff, 10)
-            Log.d("NITESH_NITESH", "Popup window shown")
+            Log.d(TAG, "Popup window shown")
         }
     }
 
     private fun hidePopupWindow() {
         popupWindow?.dismiss()
         popupWindow = null
-        Log.d("NITESH_NITESH", "Popup window hidden")
+        Log.d(TAG, "Popup window hidden")
     }
 }

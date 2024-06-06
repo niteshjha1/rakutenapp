@@ -16,6 +16,8 @@ class ProductAdapter(
     private val products: MutableList<Product> = mutableListOf()
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    private val TAG = "ProductListViewModel"
+
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.productTitle)
         val newPrice: TextView = itemView.findViewById(R.id.productNewPrice)
@@ -30,7 +32,7 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
-        Log.d("NITESH_NITESH", "Binding product: ${product.headline} at position: $position")
+        Log.d(TAG, "Binding product: ${product.headline} at position: $position")
         holder.title.text = product.headline
         holder.newPrice.text = "New: \$${product.newBestPrice}"
         holder.usedPrice.text = "Used: \$${product.usedBestPrice}"

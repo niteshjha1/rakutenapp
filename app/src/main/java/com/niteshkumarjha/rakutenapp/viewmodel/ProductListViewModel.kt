@@ -10,6 +10,8 @@ import com.niteshkumarjha.rakutenapp.data.repository.ProductRepository
 import kotlinx.coroutines.launch
 
 class ProductListViewModel : ViewModel() {
+    private val TAG = "ProductListViewModel"
+
     private val repository = ProductRepository()
 
     private val _products = MutableLiveData<List<Product>>()
@@ -27,7 +29,7 @@ class ProductListViewModel : ViewModel() {
                 val response = repository.searchProducts(keyword)
                 _products.value = response.products
             } catch (e: Exception) {
-                Log.e("NITESH_NITESH", "Error fetching product list", e)
+                Log.e(TAG, "Error fetching product list", e)
             } finally {
                 _showProgressBar.value = false
             }

@@ -39,12 +39,12 @@ class CustomLoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val t1 = System.nanoTime()
-        println("NITESH_NITESH: Sending request ${request.url()} on ${chain.connection()} \n ${request.headers()}")
+        println("Sending request ${request.url()} on ${chain.connection()} \n ${request.headers()}")
 
         val response = chain.proceed(request)
 
         val t2 = System.nanoTime()
-        println("NITESH_NITESH: Received response for ${response.request().url()} in ${(t2 - t1) / 1e6} ms \n ${response.headers()}")
+        println("Received response for ${response.request().url()} in ${(t2 - t1) / 1e6} ms \n ${response.headers()}")
 
         return response
     }
