@@ -1,4 +1,4 @@
-package com.niteshkumarjha.rakutenapp
+package com.niteshkumarjha.rakutenapp.data.model
 
 data class ProductSearchResponse(
     val totalResultProductsCount: Int,

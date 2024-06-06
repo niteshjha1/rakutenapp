@@ -1,5 +1,7 @@
-package com.niteshkumarjha.rakutenapp
+package com.niteshkumarjha.rakutenapp.data.network
 
+import com.niteshkumarjha.rakutenapp.data.model.ProductDetailsResponse
+import com.niteshkumarjha.rakutenapp.data.model.ProductSearchResponse
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

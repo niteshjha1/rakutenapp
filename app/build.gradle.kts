@@ -69,16 +69,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // build.gradle
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation (libs.glide)
     implementation (libs.androidx.recyclerview)
 
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+
     kapt (libs.compiler)
-
-
-//    implementation (libs.logging.interceptor)
-//    implementation (libs.okhttp3.logging.interceptor)
 
 }

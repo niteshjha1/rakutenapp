@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RakutenApp</string>
+    <string name="no_items_has_been_searched">No items has been searched, enter the text and press search key in keyboard to search the products</string>
+    <string name="search_for_products">Search for products</string>
 </resources>
